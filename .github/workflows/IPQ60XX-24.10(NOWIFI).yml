@@ -108,6 +108,9 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
+    - name: Setup Debug Session
+      uses: csexton/debugger-action@master
+
     - name: Compile Firmware(开始编译固件)
       id: compile
       run: |
