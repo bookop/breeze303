@@ -89,6 +89,10 @@ jobs:
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
         prefix: ${{ env.OPENWRT_PATH }}
 
+    - name: Add OpenAppFilter to feeds.conf.default
+      run: |
+        echo "src-git openappfilter https://github.com/destan19/OpenAppFilter" >> $OPENWRT_PATH/feeds.conf.default
+
     - name: Clone Plugin Repository
       run: |
         git clone --depth 1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter 
