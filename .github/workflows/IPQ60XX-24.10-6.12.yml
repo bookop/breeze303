@@ -88,6 +88,11 @@ jobs:
         ccache: false
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
         prefix: ${{ env.OPENWRT_PATH }}
+        
+    - name: Clone Plugin Repository
+      run: |
+        git clone --depth 1 https://github.com/destan19/OpenAppFilter.git openwrt/package/OpenAppFilter 
+        echo "CONFIG_PACKAGE_luci-app-oaf=y" >>openwrt/.config
     
     - name: Install Feeds(安装feeds)
       run: |
@@ -108,6 +113,9 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
+    - name: Setup Debug Session
+      uses: csexton/debugger-action@master
+      
     - name: Compile Firmware(开始编译固件)
       id: compile
       run: |
